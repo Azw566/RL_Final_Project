@@ -1,0 +1,59 @@
+[0.024s] Invoking command in '/home/telemaque/RL_finalproject/build/ros2_px4_drone': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_stretcher:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_planning:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_perception:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_exploration:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_control:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_mapping:/opt/ros/humble /usr/bin/cmake /home/telemaque/RL_finalproject/ros2_px4_drone -DCMAKE_INSTALL_PREFIX=/home/telemaque/RL_finalproject/install/ros2_px4_drone
+[0.202s] -- The C compiler identification is GNU 11.4.0
+[0.373s] -- The CXX compiler identification is GNU 11.4.0
+[0.388s] -- Detecting C compiler ABI info
+[0.520s] -- Detecting C compiler ABI info - done
+[0.541s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.542s] -- Detecting C compile features
+[0.543s] -- Detecting C compile features - done
+[0.551s] -- Detecting CXX compiler ABI info
+[0.691s] -- Detecting CXX compiler ABI info - done
+[0.704s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.704s] -- Detecting CXX compile features
+[0.705s] -- Detecting CXX compile features - done
+[0.714s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.979s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.129s] -- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[1.250s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.265s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.288s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.320s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.362s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.461s] -- Found nav_msgs: 4.9.0 (/opt/ros/humble/share/nav_msgs/cmake)
+[1.493s] -- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[1.527s] -- Found rclcpp: 16.0.17 (/opt/ros/humble/share/rclcpp/cmake)
+[1.629s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.638s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.819s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.882s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.964s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.987s] -- Looking for pthread.h
+[2.120s] -- Looking for pthread.h - found
+[2.121s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.282s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.284s] -- Found Threads: TRUE  
+[2.403s] -- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+[2.510s] -- Found xacro: 2.1.1 (/opt/ros/humble/share/xacro/cmake)
+[2.516s] -- Found tf2: 0.25.18 (/opt/ros/humble/share/tf2/cmake)
+[2.527s] -- Found tf2_ros: 0.25.18 (/opt/ros/humble/share/tf2_ros/cmake)
+[2.736s] -- Found px4_msgs: 2.0.1 (/home/telemaque/Robotics_Lab/ros2_ws/install/px4_msgs/share/px4_msgs/cmake)
+[2.761s] -- Found tf2_geometry_msgs: 0.25.18 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)
+[2.797s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[2.800s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[2.800s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[2.967s] -- Configuring done
+[2.974s] [31mCMake Error at CMakeLists.txt:27 (add_executable):
+[2.975s]   Cannot find source file:
+[2.975s] 
+[2.975s]     src/odom_bl_tf.cpp
+[2.975s] 
+[2.975s]   Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h
+[2.975s]   .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc
+[2.976s] 
+[2.976s] [0m
+[2.976s] [31mCMake Error at CMakeLists.txt:27 (add_executable):
+[2.976s]   No SOURCES given to target: dynamic_tf_publisher
+[2.976s] 
+[2.976s] [0m
+[2.976s] [0mCMake Generate step failed.  Build files cannot be regenerated correctly.[0m
+[2.993s] Invoked command in '/home/telemaque/RL_finalproject/build/ros2_px4_drone' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_stretcher:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_planning:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_perception:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_exploration:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_control:/home/telemaque/Robotics_Lab/ros2_ws/install/rescue_swarm_mapping:/opt/ros/humble /usr/bin/cmake /home/telemaque/RL_finalproject/ros2_px4_drone -DCMAKE_INSTALL_PREFIX=/home/telemaque/RL_finalproject/install/ros2_px4_drone

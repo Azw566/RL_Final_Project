@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>ros2_px4_drone</name>
+  <version>0.0.1</version>
+  <description>PX4 Drone package for autonomous exploration and mapping</description>
+
+  <maintainer email="root@todo.todo">root</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>robot_state_publisher</depend>
+  <depend>joint_state_publisher</depend>
+
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>rclcpp</build_depend>
+  <build_depend>rviz2</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>tf2</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>urdf</build_depend>
+  <build_depend>xacro</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>px4_msgs</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>
+
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>rclcpp</build_export_depend>
+  <build_export_depend>rviz2</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>tf2</build_export_depend>
+  <build_export_depend>tf2_ros</build_export_depend>
+  <build_export_depend>urdf</build_export_depend>
+  <build_export_depend>xacro</build_export_depend>
+
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf2</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
+  <exec_depend>px4_msgs</exec_depend>
+  <exec_depend>tf2_geometry_msgs</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
