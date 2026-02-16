@@ -1,0 +1,213 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="rescue_drone">
+    <pose>0 0 0.1 0 0 0</pose>
+    
+    <!-- Base link (drone body) -->
+    <link name="base_link">
+      <inertial>
+        <mass>1.5</mass>
+        <inertia>
+          <ixx>0.029125</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.029125</iyy>
+          <iyz>0</iyz>
+          <izz>0.055225</izz>
+        </inertia>
+      </inertial>
+      
+      <!-- Main body collision -->
+      <collision name="body_collision">
+        <geometry>
+          <box><size>0.4 0.4 0.15</size></box>
+        </geometry>
+      </collision>
+      
+      <!-- Main body visual -->
+      <visual name="body_visual">
+        <geometry>
+          <box><size>0.4 0.4 0.1</size></box>
+        </geometry>
+        <material>
+          <ambient>0.2 0.2 0.2 1</ambient>
+          <diffuse>0.3 0.3 0.3 1</diffuse>
+        </material>
+      </visual>
+      
+      <!-- Arms -->
+      <visual name="arm_front_left">
+        <pose>0.15 0.15 0 0 0 0.785</pose>
+        <geometry><box><size>0.25 0.02 0.02</size></box></geometry>
+        <material><ambient>0.1 0.1 0.1 1</ambient></material>
+      </visual>
+      
+      <visual name="arm_front_right">
+        <pose>0.15 -0.15 0 0 0 -0.785</pose>
+        <geometry><box><size>0.25 0.02 0.02</size></box></geometry>
+        <material><ambient>0.1 0.1 0.1 1</ambient></material>
+      </visual>
+      
+      <visual name="arm_back_left">
+        <pose>-0.15 0.15 0 0 0 -0.785</pose>
+        <geometry><box><size>0.25 0.02 0.02</size></box></geometry>
+        <material><ambient>0.1 0.1 0.1 1</ambient></material>
+      </visual>
+      
+      <visual name="arm_back_right">
+        <pose>-0.15 -0.15 0 0 0 0.785</pose>
+        <geometry><box><size>0.25 0.02 0.02</size></box></geometry>
+        <material><ambient>0.1 0.1 0.1 1</ambient></material>
+      </visual>
+      
+      <!-- Motor mounts -->
+      <visual name="motor_fl">
+        <pose>0.2 0.2 0.02 0 0 0</pose>
+        <geometry><cylinder><radius>0.03</radius><length>0.04</length></cylinder></geometry>
+        <material><ambient>1 0 0 1</ambient></material>
+      </visual>
+      
+      <visual name="motor_fr">
+        <pose>0.2 -0.2 0.02 0 0 0</pose>
+        <geometry><cylinder><radius>0.03</radius><length>0.04</length></cylinder></geometry>
+        <material><ambient>1 0 0 1</ambient></material>
+      </visual>
+      
+      <visual name="motor_bl">
+        <pose>-0.2 0.2 0.02 0 0 0</pose>
+        <geometry><cylinder><radius>0.03</radius><length>0.04</length></cylinder></geometry>
+        <material><ambient>0 0 0 1</ambient></material>
+      </visual>
+      
+      <visual name="motor_br">
+        <pose>-0.2 -0.2 0.02 0 0 0</pose>
+        <geometry><cylinder><radius>0.03</radius><length>0.04</length></cylinder></geometry>
+        <material><ambient>0 0 0 1</ambient></material>
+      </visual>
+    </link>
+    
+    <!-- Camera link (Intel RealSense D435) -->
+    <link name="camera_link">
+      <pose relative_to="base_link">0.15 0 -0.05 0 0.3 0</pose>
+      <inertial>
+        <mass>0.072</mass>
+        <inertia>
+          <ixx>0.00003881</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000478</iyy>
+          <iyz>0</iyz>
+          <izz>0.00003879</izz>
+        </inertia>
+      </inertial>
+      
+      <collision name="camera_collision">
+        <geometry>
+          <box><size>0.025 0.09 0.025</size></box>
+        </geometry>
+      </collision>
+      
+      <visual name="camera_visual">
+        <geometry>
+          <box><size>0.025 0.09 0.025</size></box>
+        </geometry>
+        <material>
+          <ambient>0.5 0.5 0.5 1</ambient>
+          <diffuse>0.6 0.6 0.6 1</diffuse>
+        </material>
+      </visual>
+      
+      <!-- RGB Camera sensor -->
+      <sensor name="color_camera" type="camera">
+        <pose>0 0 0 0 0 0</pose>
+        <update_rate>30</update_rate>
+        <camera>
+          <horizontal_fov>1.518</horizontal_fov> <!-- 87 degrees -->
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+          <ros>
+            <remapping>image_raw:=camera/color/image_raw</remapping>
+            <remapping>camera_info:=camera/color/camera_info</remapping>
+          </ros>
+          <frame_name>camera_link</frame_name>
+        </plugin>
+      </sensor>
+      
+      <!-- Depth Camera sensor -->
+      <sensor name="depth_camera" type="depth">
+        <pose>0 0 0 0 0 0</pose>
+        <update_rate>30</update_rate>
+        <camera>
+          <horizontal_fov>1.518</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R_FLOAT32</format>
+          </image>
+          <clip>
+            <near>0.3</near>
+            <far>10.0</far>
+          </clip>
+        </camera>
+        <plugin name="depth_camera_controller" filename="libgazebo_ros_camera.so">
+          <ros>
+            <remapping>image_raw:=camera/depth/image_raw</remapping>
+            <remapping>camera_info:=camera/depth/camera_info</remapping>
+            <remapping>points:=camera/depth/points</remapping>
+          </ros>
+          <frame_name>camera_link</frame_name>
+          <min_depth>0.3</min_depth>
+          <max_depth>10.0</max_depth>
+        </plugin>
+      </sensor>
+    </link>
+    
+    <!-- Camera joint -->
+    <joint name="camera_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>camera_link</child>
+    </joint>
+    
+    <!-- IMU sensor -->
+    <link name="imu_link">
+      <pose relative_to="base_link">0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>0.000001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000001</iyy>
+          <iyz>0</iyz>
+          <izz>0.000001</izz>
+        </inertia>
+      </inertial>
+      
+      <sensor name="imu_sensor" type="imu">
+        <always_on>true</always_on>
+        <update_rate>250</update_rate>
+        <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+          <ros>
+            <remapping>~/out:=imu</remapping>
+          </ros>
+          <frame_name>imu_link</frame_name>
+        </plugin>
+      </sensor>
+    </link>
+    
+    <joint name="imu_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>imu_link</child>
+    </joint>
+    
+  </model>
+</sdf>
