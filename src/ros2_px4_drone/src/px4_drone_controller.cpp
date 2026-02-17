@@ -189,13 +189,15 @@ private:
                 trajectory_setpoint_pub_->publish(setpoint);
                 
                 // Check if reached goal
-                double dx = goal_x_ - current_x_;
-                double dy = goal_y_ - current_y_;
-                double distance = std::sqrt(dx*dx + dy*dy);
-                
-                if (distance < 0.5) {  // 0.5m tolerance
-                    state_ = HOVERING;
-                    RCLCPP_INFO(this->get_logger(), "Reached goal, hovering");
+                {
+                    double dx = goal_x_ - current_x_;
+                    double dy = goal_y_ - current_y_;
+                    double distance = std::sqrt(dx*dx + dy*dy);
+
+                    if (distance < 0.5) {  // 0.5m tolerance
+                        state_ = HOVERING;
+                        RCLCPP_INFO(this->get_logger(), "Reached goal, hovering");
+                    }
                 }
                 break;
                 
