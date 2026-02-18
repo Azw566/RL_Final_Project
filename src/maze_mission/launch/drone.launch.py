@@ -18,7 +18,9 @@ def generate_launch_description():
         'namespace', default_value='drone1', description='Namespace for the drone'
     )
 
-    # Include the full exploration stack (SLAM + Nav2 + explore_lite + bridge + RViz)
+    bt_xml_path = '/opt/ros/humble/share/nav2_bt_navigator/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml'
+
+    # Include the full exploration stack
     explore_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
@@ -28,15 +30,19 @@ def generate_launch_description():
         launch_arguments={
             'use_sim_time': use_sim_time,
             'namespace': namespace,
+            # On force le paramètre ici pour écraser le YAML
+            'default_bt_xml_filename': bt_xml_path,
         }.items(),
     )
 
-    # Mission planner node
     mission_planner_node = Node(
         package='maze_mission',
         executable='mission_planner',
         name='mission_planner',
-        parameters=[{'use_sim_time': use_sim_time}],
+        parameters=[{
+            'use_sim_time': use_sim_time,
+            'namespace': namespace 
+        }],
         output='screen',
     )
 
