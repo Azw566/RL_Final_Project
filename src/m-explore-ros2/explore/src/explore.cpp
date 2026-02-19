@@ -249,8 +249,9 @@ void Explore::makePlan()
   }
 
   if (frontiers.empty()) {
-    RCLCPP_WARN(logger_, "No frontiers found, stopping.");
-    stop(true);
+    RCLCPP_WARN_THROTTLE(
+        logger_, *this->get_clock(), 5000,
+        "No frontiers found yet, waiting for map/costmap updates.");
     return;
   }
 

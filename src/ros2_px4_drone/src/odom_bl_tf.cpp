@@ -14,7 +14,7 @@ public:
             "/drone1/odom", 10,
             std::bind(&DynamicTfPublisher::odomCallback, this, std::placeholders::_1));
 
-        RCLCPP_INFO(this->get_logger(), "Dynamic TF publisher initialized (drone1).");
+        RCLCPP_INFO(this->get_logger(), "Dynamic TF publisher initialized (drone1) with Time Offset.");
     }
 
 private:
@@ -22,36 +22,31 @@ private:
         double x = msg->pose.pose.position.x;
         double y = msg->pose.pose.position.y;
 
-        tf2::Quaternion q(
-            msg->pose.pose.orientation.x,
-            msg->pose.pose.orientation.y,
-            msg->pose.pose.orientation.z,
-            msg->pose.pose.orientation.w);
-        double yaw = std::atan2(2.0 * (q.w() * q.z() + q.x() * q.y()),
-                                1.0 - 2.0 * (q.y() * q.y() + q.z() * q.z()));
-
         geometry_msgs::msg::TransformStamped transform_stamped;
-        transform_stamped.header.stamp = this->now();
-        transform_stamped.header.frame_id = "drone1/odom";
+        
+        // --- CORRECTION : AJOUT D'UN OFFSET DE 50ms ---
+        // On utilise le stamp du message + une petite marge pour éviter les rejets du cache TF
+        rclcpp::Time stamp = rclcpp::Time(msg->header.stamp) + rclcpp::Duration::from_seconds(0.05);
+        transform_stamped.header.stamp = stamp;
+        // ----------------------------------------------
+
+        transform_stamped.header.frame_id = "odom";
         transform_stamped.child_frame_id = "base_footprint";
 
         transform_stamped.transform.translation.x = x;
         transform_stamped.transform.translation.y = y;
         transform_stamped.transform.translation.z = 0.0;
-        transform_stamped.transform.rotation.x = q.x();
-        transform_stamped.transform.rotation.y = q.y();
-        transform_stamped.transform.rotation.z = q.z();
-        transform_stamped.transform.rotation.w = q.w();
+        
+        transform_stamped.transform.rotation.x = msg->pose.pose.orientation.x;
+        transform_stamped.transform.rotation.y = msg->pose.pose.orientation.y;
+        transform_stamped.transform.rotation.z = msg->pose.pose.orientation.z;
+        transform_stamped.transform.rotation.w = msg->pose.pose.orientation.w;
 
         tf_broadcaster_->sendTransform(transform_stamped);
-
-        RCLCPP_DEBUG(this->get_logger(),
-                     "Published transform: [frame: drone1/odom -> base_footprint] [x: %.2f, y: %.2f, yaw: %.2f]",
-                     x, y, yaw);
     }
 
     std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
-    rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
+     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
 };
 
 int main(int argc, char **argv) {

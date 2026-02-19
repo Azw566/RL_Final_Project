@@ -41,6 +41,7 @@
 #include <functional>
 #include <mutex>
 #include <string>
+#include <rclcpp/qos.hpp>
 
 namespace explore
 {
@@ -69,10 +70,17 @@ Costmap2DClient::Costmap2DClient(rclcpp::Node& node, const tf2_ros::Buffer* tf)
   node_.get_parameter("transform_tolerance", transform_tolerance_);
 
   /* initialize costmap */
+  rclcpp::QoS costmap_qos(10);
+  costmap_qos.best_effort();
+  costmap_qos.durability_volatile();
+
   costmap_sub_ = node_.create_subscription<nav_msgs::msg::OccupancyGrid>(
-      costmap_topic, 1000,
-      [this](const nav_msgs::msg::OccupancyGrid::SharedPtr msg) {
+      costmap_topic, costmap_qos,
+      [this, costmap_topic](const nav_msgs::msg::OccupancyGrid::SharedPtr msg) {
         costmap_received_ = true;
+        RCLCPP_INFO_ONCE(node_.get_logger(),
+                         "First costmap message received on %s",
+                         costmap_topic.c_str());
         updateFullMap(msg);
       });
 
@@ -97,7 +105,7 @@ Costmap2DClient::Costmap2DClient(rclcpp::Node& node, const tf2_ros::Buffer* tf)
   /* subscribe to map updates */
   costmap_updates_sub_ =
       node_.create_subscription<map_msgs::msg::OccupancyGridUpdate>(
-          costmap_updates_topic, 1000,
+          costmap_updates_topic, costmap_qos,
           [this](const map_msgs::msg::OccupancyGridUpdate::SharedPtr msg) {
             updatePartialMap(msg);
           });

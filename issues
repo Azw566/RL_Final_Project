@@ -1,0 +1,38 @@
+Technical Diagnostic Report: ROS 2 PX4 Drone (Humble)
+1. Transform Chain Issue (TF Tree)
+
+    Symptom: Nav2 errors stating frame 'odom' does not exist.
+
+    Cause: The link between map (published by Slam Toolbox) and base_link (the drone) was missing. The PX4 bridge was not publishing the odometry transformation.
+
+    Current State: A C++ node named dynamic_tf_publisher has been re-integrated to bridge the gap between odom and base_footprint.
+
+2. Temporal Desynchronization (Time Sync)
+
+    Symptom: Message Filter dropping message: frame 'rplidar_link' ... reason 'the timestamp [...] is earlier than all the data in the transform cache'.
+
+    Cause: A conflict between the System Clock (PC) and Sim Time (Gazebo). Lidar data is rejected because Nav2/SLAM perceives it as arriving from the "past" relative to the TF cache.
+
+    Corrective Actions Taken:
+
+        Forced use_sim_time: True across all launch arguments.
+
+        In dynamic_tf_publisher.cpp, replaced this->now() with msg->header.stamp.
+
+        Pending Fix: A small time offset (+0.05s) was suggested to the TF timestamp to account for Micro-XRCE-DDS bridge latency.
+
+3. Controller Server Crash (Nav2)
+
+    Symptom: FATAL [controller_server]: No critics defined for FollowPath.
+
+    Cause: The navigation.yaml file is either misformatted or missing the required "critics" for the DWB Local Planner plugin.
+
+    Action Required: Explicitly define the critics list (e.g., RotateToGoal, ObstacleFootprint, PathAlign, etc.) under the FollowPath section in the YAML configuration.
+
+4. PX4 Arming Failure (EKF2)
+
+    Symptom: Preflight Fail: ekf2 missing data.
+
+    Cause: The Extended Kalman Filter (EKF2) in the PX4 SITL is failing to converge, usually due to missing or delayed IMU/GPS data from Gazebo.
+
+    Action Required: Check Gazebo plugin initialization or increase the startup sleep timer to allow the filter to stabilize before attempting to switch to Offboard mode.

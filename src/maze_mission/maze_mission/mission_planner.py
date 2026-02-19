@@ -51,6 +51,14 @@ class MissionPlanner(Node):
                 f'New ArUco marker detected: ID {marker.id}'
             )
 
+            # If marker publisher runs without camera_info, pose may be unavailable.
+            if not marker.header.frame_id:
+                self.get_logger().warn(
+                    f'Marker {marker.id} has no pose frame. '
+                    f'Set aruco_use_camera_info:=true with valid camera topics to enable rescue goals.'
+                )
+                continue
+
             # Publish rescue goal at the marker pose
             goal = PoseStamped()
             goal.header = marker.header

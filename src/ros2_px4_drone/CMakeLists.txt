@@ -24,14 +24,11 @@ ament_target_dependencies(nav2_px4_bridge rclcpp geometry_msgs nav_msgs px4_msgs
 add_executable(px4_drone_controller src/px4_drone_controller.cpp)
 ament_target_dependencies(px4_drone_controller rclcpp geometry_msgs px4_msgs tf2 tf2_geometry_msgs)
 
-add_executable(dynamic_tf_publisher src/odom_bl_tf.cpp)
-ament_target_dependencies(dynamic_tf_publisher rclcpp nav_msgs geometry_msgs tf2 tf2_ros)
-
-install(DIRECTORY launch urdf config maps rviz_conf
+install(DIRECTORY launch config rviz_conf scripts
   DESTINATION share/${PROJECT_NAME}
 )
 
-install(TARGETS nav2_px4_bridge px4_drone_controller dynamic_tf_publisher
+install(TARGETS nav2_px4_bridge px4_drone_controller
   DESTINATION lib/${PROJECT_NAME}
 )
 
