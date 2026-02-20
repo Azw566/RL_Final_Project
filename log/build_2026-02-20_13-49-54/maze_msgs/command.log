@@ -1,0 +1,2 @@
+Invoking command in '/home/telemaque/maze_ws/build/maze_msgs': /usr/bin/cmake /home/telemaque/maze_ws/src/maze_msgs -DROS_DISTRO=jazzy -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/maze_msgs
+Invoked command in '/home/telemaque/maze_ws/build/maze_msgs' returned '1': /usr/bin/cmake /home/telemaque/maze_ws/src/maze_msgs -DROS_DISTRO=jazzy -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/maze_msgs

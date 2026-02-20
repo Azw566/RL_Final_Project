@@ -1,0 +1,1 @@
+Invoking command in '/home/telemaque/maze_ws/build/maze_nav2': /usr/bin/cmake /home/telemaque/maze_ws/src/maze_nav2 -DROS_DISTRO=jazzy -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/maze_nav2

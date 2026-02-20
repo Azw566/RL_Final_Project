@@ -1,0 +1,14 @@
+explore_node:
+  ros__parameters:
+    robot_base_frame: base_link
+    costmap_topic: global_costmap/costmap
+    costmap_updates_topic: global_costmap/costmap_updates
+    visualize: true
+    planner_frequency: 0.33            # replan every 3 sec
+    progress_timeout: 30.0             # abort and re-plan after 30s of no progress
+    potential_scale: 3.0               # weight for distance to frontier
+    orientation_scale: 0.0             # drones don't care about heading during transit
+    gain_scale: 1.0                    # weight for frontier information gain
+    transform_tolerance: 0.5
+    min_frontier_size: 0.75            # ignore tiny frontiers (meters)
+    return_to_init: false

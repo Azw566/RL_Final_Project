@@ -1,0 +1,21 @@
+[0.036s] Invoking command in '/home/telemaque/maze_ws/build/maze_nav2': /usr/bin/cmake /home/telemaque/maze_ws/src/maze_nav2 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/maze_nav2
+[0.091s] [31mCMake Error at CMakeLists.txt:4 (find_package):
+[0.091s]   By not providing "Findament_cmake.cmake" in CMAKE_MODULE_PATH this project
+[0.092s]   has asked CMake to find a package configuration file provided by
+[0.092s]   "ament_cmake", but CMake did not find one.
+[0.092s] 
+[0.092s]   Could not find a package configuration file provided by "ament_cmake" with
+[0.092s]   any of the following names:
+[0.092s] 
+[0.092s]     ament_cmakeConfig.cmake
+[0.093s]     ament_cmake-config.cmake
+[0.093s] 
+[0.093s]   Add the installation prefix of "ament_cmake" to CMAKE_PREFIX_PATH or set
+[0.093s]   "ament_cmake_DIR" to a directory containing one of the above files.  If
+[0.093s]   "ament_cmake" provides a separate development package or SDK, be sure it
+[0.093s]   has been installed.
+[0.093s] 
+[0.093s] [0m
+[0.093s] -- Configuring incomplete, errors occurred!
+[0.094s] See also "/home/telemaque/maze_ws/build/maze_nav2/CMakeFiles/CMakeOutput.log".
+[0.100s] Invoked command in '/home/telemaque/maze_ws/build/maze_nav2' returned '1': /usr/bin/cmake /home/telemaque/maze_ws/src/maze_nav2 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/maze_nav2

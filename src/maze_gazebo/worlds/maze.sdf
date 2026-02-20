@@ -1,0 +1,344 @@
+<?xml version="1.0" ?>
+<!--
+  maze.sdf — Gazebo Harmonic world for the leader-follower maze system.
+
+  Layout (top view, each cell ≈ 2m × 2m):
+  ┌────────────────────────────────────────────────────────────┐
+  │  Wall height: 2.0m (drone flies at 1.2m → LiDAR hits walls)│
+  │  Corridor width: 2.0m                                      │
+  │  ArUco tags placed on inner walls                          │
+  │                                                            │
+  │  Drone 1 spawns at (0, 0, 0.3)  — namespace drone1        │
+  │  Drone 2 spawns at (2, 0, 0.3)  — namespace drone2        │
+  │  TurtleBot spawns at (1, 1, 0)                             │
+  └────────────────────────────────────────────────────────────┘
+
+  Coordinate system: ENU (East-North-Up), X=East, Y=North, Z=Up
+-->
+<sdf version="1.9">
+  <world name="maze">
+
+    <!-- ── Physics ────────────────────────────────────────────────────────── -->
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <!-- ── Plugins ───────────────────────────────────────────────────────── -->
+    <plugin filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system"
+            name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system"
+            name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system"
+            name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-imu-system"
+            name="gz::sim::systems::Imu"/>
+    <plugin filename="gz-sim-air-pressure-system"
+            name="gz::sim::systems::AirPressure"/>
+    <plugin filename="gz-sim-magnetometer-system"
+            name="gz::sim::systems::Magnetometer"/>
+
+    <!-- ── Lighting ──────────────────────────────────────────────────────── -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 100 0 0 0</pose>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- ── Ground plane ──────────────────────────────────────────────────── -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!--  MAZE WALLS                                                        -->
+    <!--  Origin at world center. Wall thickness 0.2m, height 2.0m.        -->
+    <!--  Corridor width ~2.0m.                                             -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- Outer perimeter: 20m × 20m box, walls along edges -->
+
+    <!-- North wall -->
+    <model name="wall_N">
+      <static>true</static>
+      <pose>0 10 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>20.4 0.2 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>20.4 0.2 2.0</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- South wall -->
+    <model name="wall_S">
+      <static>true</static>
+      <pose>0 -10 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>20.4 0.2 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>20.4 0.2 2.0</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- East wall -->
+    <model name="wall_E">
+      <static>true</static>
+      <pose>10 0 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.2 20.0 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.2 20.0 2.0</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- West wall -->
+    <model name="wall_W">
+      <static>true</static>
+      <pose>-10 0 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.2 20.0 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.2 20.0 2.0</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Interior dividers (creating maze corridors) ───────────────────── -->
+
+    <!-- Horizontal divider at y=5 from x=-10 to x=6 (gap 6..10) -->
+    <model name="wall_h1">
+      <static>true</static>
+      <pose>-2 5 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>16.0 0.2 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>16.0 0.2 2.0</size></box></geometry>
+          <material><ambient>0.75 0.75 0.75 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Horizontal divider at y=0 from x=2 to x=10 -->
+    <model name="wall_h2">
+      <static>true</static>
+      <pose>6 0 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>8.0 0.2 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>8.0 0.2 2.0</size></box></geometry>
+          <material><ambient>0.75 0.75 0.75 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Horizontal divider at y=-5 from x=-10 to x=2 -->
+    <model name="wall_h3">
+      <static>true</static>
+      <pose>-4 -5 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>12.0 0.2 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>12.0 0.2 2.0</size></box></geometry>
+          <material><ambient>0.75 0.75 0.75 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Vertical divider at x=-5 from y=-10 to y=3 -->
+    <model name="wall_v1">
+      <static>true</static>
+      <pose>-5 -3.5 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.2 13.0 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.2 13.0 2.0</size></box></geometry>
+          <material><ambient>0.75 0.75 0.75 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Vertical divider at x=0 from y=-10 to y=-2 -->
+    <model name="wall_v2">
+      <static>true</static>
+      <pose>0 -6 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.2 8.0 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.2 8.0 2.0</size></box></geometry>
+          <material><ambient>0.75 0.75 0.75 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Vertical divider at x=5 from y=2 to y=10 -->
+    <model name="wall_v3">
+      <static>true</static>
+      <pose>5 6 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.2 8.0 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.2 8.0 2.0</size></box></geometry>
+          <material><ambient>0.75 0.75 0.75 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Vertical divider at x=-2 from y=5 to y=10 -->
+    <model name="wall_v4">
+      <static>true</static>
+      <pose>-2 7.5 1 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.2 5.0 2.0</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.2 5.0 2.0</size></box></geometry>
+          <material><ambient>0.75 0.75 0.75 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!--  ARUCO MARKERS (mounted on walls at ~1.0m height, facing corridor) -->
+    <!--  Dictionary: DICT_4X4_50                                           -->
+    <!--  Size: 0.15m × 0.15m                                               -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- Tag ID 0 — NW corridor, on wall_v1 facing East -->
+    <model name="aruco_tag_0">
+      <static>true</static>
+      <pose>-4.9 2 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><box><size>0.001 0.15 0.15</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr>
+              <metal>
+                <albedo_map>model://aruco_tags/tag0.png</albedo_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Tag ID 1 — NE corridor, on wall_h1 facing South -->
+    <model name="aruco_tag_1">
+      <static>true</static>
+      <pose>7 4.9 1.0 0 0 1.5708</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><box><size>0.001 0.15 0.15</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr>
+              <metal>
+                <albedo_map>model://aruco_tags/tag1.png</albedo_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Tag ID 2 — center area, on wall_h2 facing South -->
+    <model name="aruco_tag_2">
+      <static>true</static>
+      <pose>3 0.1 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><box><size>0.001 0.15 0.15</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr>
+              <metal>
+                <albedo_map>model://aruco_tags/tag2.png</albedo_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Tag ID 3 — SE corridor, on wall_v2 facing West -->
+    <model name="aruco_tag_3">
+      <static>true</static>
+      <pose>0.1 -8 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><box><size>0.001 0.15 0.15</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr>
+              <metal>
+                <albedo_map>model://aruco_tags/tag3.png</albedo_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Tag ID 4 — SW corridor, on wall_h3 facing North -->
+    <model name="aruco_tag_4">
+      <static>true</static>
+      <pose>-7 -4.9 1.0 0 0 1.5708</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><box><size>0.001 0.15 0.15</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr>
+              <metal>
+                <albedo_map>model://aruco_tags/tag4.png</albedo_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!--  DRONE SPAWNS (handled by PX4 SITL via launch_px4_sitl.sh)        -->
+    <!--  Listed here as reference only — PX4 SITL manages its own model.  -->
+    <!--                                                                    -->
+    <!--  Drone 1: (0, 0, 0.3)  → ENU: x=0, y=0                           -->
+    <!--  Drone 2: (2, 0, 0.3)  → ENU: x=2, y=0                           -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!--  TURTLEBOT 4 SPAWN                                                 -->
+    <!--  Spawned via turtlebot4_simulator or gz service at (1, 1, 0)       -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+
+  </world>
+</sdf>

@@ -1,0 +1,21 @@
+[0.024s] Invoking command in '/home/telemaque/maze_ws/build/px4_msgs': /usr/bin/cmake /home/telemaque/maze_ws/src/px4_msgs -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/px4_msgs
+[0.090s] [31mCMake Error at CMakeLists.txt:11 (find_package):
+[0.090s]   By not providing "Findament_cmake.cmake" in CMAKE_MODULE_PATH this project
+[0.091s]   has asked CMake to find a package configuration file provided by
+[0.091s]   "ament_cmake", but CMake did not find one.
+[0.092s] 
+[0.093s]   Could not find a package configuration file provided by "ament_cmake" with
+[0.094s]   any of the following names:
+[0.096s] 
+[0.096s]     ament_cmakeConfig.cmake
+[0.097s]     ament_cmake-config.cmake
+[0.097s] 
+[0.097s]   Add the installation prefix of "ament_cmake" to CMAKE_PREFIX_PATH or set
+[0.098s]   "ament_cmake_DIR" to a directory containing one of the above files.  If
+[0.098s]   "ament_cmake" provides a separate development package or SDK, be sure it
+[0.100s]   has been installed.
+[0.101s] 
+[0.102s] [0m
+[0.103s] -- Configuring incomplete, errors occurred!
+[0.104s] See also "/home/telemaque/maze_ws/build/px4_msgs/CMakeFiles/CMakeOutput.log".
+[0.110s] Invoked command in '/home/telemaque/maze_ws/build/px4_msgs' returned '1': /usr/bin/cmake /home/telemaque/maze_ws/src/px4_msgs -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/px4_msgs

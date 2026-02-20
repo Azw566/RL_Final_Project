@@ -1,0 +1,8 @@
+[0.026s] Invoking command in '/home/telemaque/maze_ws/build/explore_lite': /usr/bin/cmake /home/telemaque/maze_ws/src/m-explore-ros2/explore -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/explore_lite
+[0.056s] [31mCMake Error at CMakeLists.txt:20 (message):
+[0.056s]   ROS_DISTRO is not defined.
+[0.056s] 
+[0.056s] [0m
+[0.057s] -- Configuring incomplete, errors occurred!
+[0.057s] See also "/home/telemaque/maze_ws/build/explore_lite/CMakeFiles/CMakeOutput.log".
+[0.061s] Invoked command in '/home/telemaque/maze_ws/build/explore_lite' returned '1': /usr/bin/cmake /home/telemaque/maze_ws/src/m-explore-ros2/explore -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/explore_lite

@@ -1,0 +1,18 @@
+aruco_detector:
+  ros__parameters:
+    # Physical marker size (side length in meters)
+    marker_size: 0.15
+
+    # ArUco dictionary — must match the tags placed in Gazebo
+    aruco_dict: DICT_4X4_50
+
+    # TF frame of the camera optical center
+    # For drones: "drone1/camera_optical_link"  etc.
+    # For TurtleBot: "oakd_rgb_camera_optical_frame"
+    camera_frame: camera_optical_link
+
+    # Global map frame (output poses are expressed in this frame)
+    map_frame: map
+
+    # Namespace label embedded in each detection message
+    camera_ns: ""

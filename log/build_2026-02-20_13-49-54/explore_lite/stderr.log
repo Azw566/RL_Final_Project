@@ -1,0 +1,4 @@
+[31mCMake Error at CMakeLists.txt:20 (message):
+  ROS_DISTRO is not defined.
+
+[0m

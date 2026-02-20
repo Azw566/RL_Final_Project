@@ -1,0 +1,20 @@
+[0.023s] Invoking command in '/home/telemaque/maze_ws/build/explore_lite': /usr/bin/cmake /home/telemaque/maze_ws/src/m-explore-ros2/explore -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/explore_lite
+[0.233s] -- The C compiler identification is GNU 11.4.0
+[0.444s] -- The CXX compiler identification is GNU 11.4.0
+[0.467s] -- Detecting C compiler ABI info
+[0.678s] -- Detecting C compiler ABI info - done
+[0.704s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.705s] -- Detecting C compile features
+[0.706s] -- Detecting C compile features - done
+[0.717s] -- Detecting CXX compiler ABI info
+[0.946s] -- Detecting CXX compiler ABI info - done
+[0.973s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.974s] -- Detecting CXX compile features
+[0.976s] -- Detecting CXX compile features - done
+[0.978s] CMake Error at CMakeLists.txt:20 (message):
+[0.978s]   ROS_DISTRO is not defined.
+[0.979s] 
+[0.979s] 
+[0.979s] -- Configuring incomplete, errors occurred!
+[0.979s] See also "/home/telemaque/maze_ws/build/explore_lite/CMakeFiles/CMakeOutput.log".
+[0.994s] Invoked command in '/home/telemaque/maze_ws/build/explore_lite' returned '1': /usr/bin/cmake /home/telemaque/maze_ws/src/m-explore-ros2/explore -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/explore_lite
