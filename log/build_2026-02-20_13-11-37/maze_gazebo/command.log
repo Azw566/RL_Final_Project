@@ -1,2 +1,0 @@
-Invoking command in '/home/telemaque/maze_ws/build/maze_gazebo': /usr/bin/cmake /home/telemaque/maze_ws/src/maze_gazebo -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/maze_gazebo
-Invoked command in '/home/telemaque/maze_ws/build/maze_gazebo' returned '1': /usr/bin/cmake /home/telemaque/maze_ws/src/maze_gazebo -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/maze_gazebo

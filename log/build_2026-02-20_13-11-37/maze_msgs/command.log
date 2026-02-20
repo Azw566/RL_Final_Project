@@ -1,1 +1,0 @@
-Invoking command in '/home/telemaque/maze_ws/build/maze_msgs': /usr/bin/cmake /home/telemaque/maze_ws/src/maze_msgs -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/maze_msgs

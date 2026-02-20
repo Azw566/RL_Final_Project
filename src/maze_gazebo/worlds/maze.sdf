@@ -235,13 +235,11 @@
         <visual name="v">
           <geometry><box><size>0.001 0.15 0.15</size></box></geometry>
           <material>
-            <ambient>1 1 1 1</ambient>
-            <diffuse>1 1 1 1</diffuse>
-            <pbr>
-              <metal>
-                <albedo_map>model://aruco_tags/tag0.png</albedo_map>
-              </metal>
-            </pbr>
+            <script>
+              <uri>model://aruco_marker/materials/scripts</uri>
+              <uri>model://aruco_marker/materials/textures</uri>
+              <name>ArUcoMarker/Marker0</name>
+            </script>
           </material>
         </visual>
       </link>
@@ -255,13 +253,11 @@
         <visual name="v">
           <geometry><box><size>0.001 0.15 0.15</size></box></geometry>
           <material>
-            <ambient>1 1 1 1</ambient>
-            <diffuse>1 1 1 1</diffuse>
-            <pbr>
-              <metal>
-                <albedo_map>model://aruco_tags/tag1.png</albedo_map>
-              </metal>
-            </pbr>
+            <script>
+              <uri>model://aruco_marker/materials/scripts</uri>
+              <uri>model://aruco_marker/materials/textures</uri>
+              <name>ArUcoMarker/Marker1</name>
+            </script>
           </material>
         </visual>
       </link>
@@ -275,13 +271,11 @@
         <visual name="v">
           <geometry><box><size>0.001 0.15 0.15</size></box></geometry>
           <material>
-            <ambient>1 1 1 1</ambient>
-            <diffuse>1 1 1 1</diffuse>
-            <pbr>
-              <metal>
-                <albedo_map>model://aruco_tags/tag2.png</albedo_map>
-              </metal>
-            </pbr>
+            <script>
+              <uri>model://aruco_marker/materials/scripts</uri>
+              <uri>model://aruco_marker/materials/textures</uri>
+              <name>ArUcoMarker/Marker2</name>
+            </script>
           </material>
         </visual>
       </link>
@@ -295,13 +289,11 @@
         <visual name="v">
           <geometry><box><size>0.001 0.15 0.15</size></box></geometry>
           <material>
-            <ambient>1 1 1 1</ambient>
-            <diffuse>1 1 1 1</diffuse>
-            <pbr>
-              <metal>
-                <albedo_map>model://aruco_tags/tag3.png</albedo_map>
-              </metal>
-            </pbr>
+            <script>
+              <uri>model://aruco_marker/materials/scripts</uri>
+              <uri>model://aruco_marker/materials/textures</uri>
+              <name>ArUcoMarker/Marker3</name>
+            </script>
           </material>
         </visual>
       </link>
@@ -315,13 +307,11 @@
         <visual name="v">
           <geometry><box><size>0.001 0.15 0.15</size></box></geometry>
           <material>
-            <ambient>1 1 1 1</ambient>
-            <diffuse>1 1 1 1</diffuse>
-            <pbr>
-              <metal>
-                <albedo_map>model://aruco_tags/tag4.png</albedo_map>
-              </metal>
-            </pbr>
+            <script>
+              <uri>model://aruco_marker/materials/scripts</uri>
+              <uri>model://aruco_marker/materials/textures</uri>
+              <name>ArUcoMarker/Marker4</name>
+            </script>
           </material>
         </visual>
       </link>

@@ -1,1 +1,0 @@
-Invoking command in '/home/telemaque/maze_ws/build/multirobot_map_merge': /usr/bin/cmake /home/telemaque/maze_ws/src/m-explore-ros2/map_merge -DROS_DISTRO=jazzy -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/telemaque/maze_ws/install/multirobot_map_merge
